@@ -1,0 +1,76 @@
+
+
+body{
+	background-color: #000;
+}
+
+.wraper {
+	font-family: 'Arial', sans-serif;
+}
+
+
+.calc_body{
+	margin: 0 auto;
+	max-width: 300px;
+	background-color: #999;
+	padding: 10px;
+}
+
+.scrin{
+	width: 280px;
+	height: 50px;
+	background-color: yellow;
+	margin: 10px 0;
+	padding: 10px;
+	font-size: 26px;
+	font-weight: 600;
+	overflow: hidden;
+}
+
+
+
+
+.operandas {
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.sign {
+	flex: 0 1 50px;
+	color: #fff;
+	background-color: blue;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+
+.digits {
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	margin: 10px 0 0 0;
+}
+
+.num.c{
+	color: #fff;
+	background-color: blue;
+}
+
+.num.reset{
+	color: #fff;
+	background-color: blue;
+}
+
+.num {
+	flex: 0 1 70px;
+	height: 60px;
+	background-color: gold;
+	margin: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
