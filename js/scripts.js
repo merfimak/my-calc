@@ -17,38 +17,15 @@ let cancel = false;//флаг для удоления с экранна отве
 //////////////////////////////////////////еqual//////////////////////////////////////////
 еqual.addEventListener("click", function(){
 	let text = scrin.innerText;
-
-	console.log(text);
 	let arr = text.split('\u00A0');
-	console.log(arr);
-	operandaSign = arr[1];
-
-	switch (operandaSign) {
-	  case "+":
-	    scrin.innerText = Number(arr[0]) + Number(arr[2]);//Number приводит строку к числу
-	    break;
-	  case "-":
-	    scrin.innerText = Number(arr[0]) - Number(arr[2]);
-	    break;
-	     case "*":
-	    scrin.innerText = Number(arr[0]) * Number(arr[2]);
-	    break;
-	     case "/":
-	     if(Number(arr[2] == 0)){
-	     	scrin.innerHTML = '<div class="alert_null">на ноль делить нельзя</div>';
-	     }else{
-	     	scrin.innerText = Number(arr[0]) / Number(arr[2]);
-	     }
-	    
-	    break;
-	}
-
-
-
+	console.log(arr)
+	let operandaSign = arr[1];
+	console.log(operandaSign)
+	scrin.innerHTML = action(operandaSign, arr);
 	cancel = true;//флаг для удоления с экранна ответа после того как нажали еqual
 	});
 
-
+//дорабоать равно и внешний вид
 
 //////////////////////////////////////////operanda//////////////////////////////////////////
 
@@ -59,12 +36,24 @@ for (i = 0; i < operanda.length; i++) {
 	operanda[i].addEventListener("click", function(){
 
 		let text = scrin.innerText;
-
-
-
-      
-      let n = event.target.dataset.sign;
+		let arr = text.split('\u00A0');
+		let n = event.target.dataset.sign;
+		console.log(arr)
+		if(text == '' && n != '-'){//шо не нажимали в начале знак
+			scrin.innerText  = text;
+		}else if(arr.includes(n) && n != '-'){//что б не выдовало ошибку при повторном нажатии на ту же самую операнду
+			scrin.innerText  = text;
+		}
+		else if(arr.includes("+") || arr.includes("-") || arr.includes("*") || arr.includes("/")){// если уже есть готовая операция то операнда заменяет равоно
+			let operandaSign = arr[1];
+			scrin.innerHTML = action(operandaSign, arr) + '\u00A0' + n  + '\u00A0';		
+		}else{
+			
        scrin.innerText  = text + '\u00A0' + n  + '\u00A0';//'\u00A0' - браузер затерает пробелыв конце строк, а эта штука значит пробел который не сотрется
+       
+		}
+      
+      
 	
 	});
 }
@@ -77,7 +66,7 @@ for (i = 0; i < digit.length; i++) {
 
 	digit[i].addEventListener("click", function(){
 
-		if(cancel == true){
+		if(cancel == true){//проверяем есть ли на экране готовое решение от предыдущегей операции
 
 
 			scrin.innerText  = '';
@@ -104,7 +93,32 @@ c.addEventListener("click", function(){
        scrin.innerText  = '';
 	});
 
+reset.addEventListener("click", function(){  
+	
+	let text = scrin.innerText.trim();
+       scrin.innerText  = text.slice(0, -1).trim();//Метод slice() извлекает часть строки и возвращает новую строку без изменения оригинальной строки.
+	});
 
+function action(operandaSign, arr){
+		switch (operandaSign) {
+	  case "+":
+	    return Number(arr[0]) + Number(arr[2]);//Number приводит строку к числу
+	    break;
+	  case "-":
+	    return Number(arr[0]) - Number(arr[2]);
+	    break;
+	     case "*":
+	    return Number(arr[0]) * Number(arr[2]);
+	    break;
+	     case "/":
+		    if(Number(arr[2] == 0)){
+		     	return '<div class="alert_null">на ноль делить нельзя</div>';
+		     }else{
+		     	return Number(arr[0]) / Number(arr[2]);
+		     }   
+	    break;
+	}
+}
 
 }
 
