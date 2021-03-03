@@ -1,36 +1,43 @@
 
 
 body{
-	background-color: #000;
+	background-color:  #E567B1;
 }
 
 .wraper {
 	font-family: 'Arial', sans-serif;
+	font-weight: 600;
 }
 
 
 .calc_body{
 	margin: 0 auto;
 	max-width: 300px;
-	background-color: #999;
+	background-color: #A40004;
 	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 0px 5px 1px rgba(0, 0, 0, 0.5);
 }
 
 .scrin{
-	width: 280px;
-	height: 50px;
-	background-color: yellow;
-	margin: 10px 0;
+	max-width: 280px;
+	height: 30px;
+	background-color: #FF7100;
+	margin: 10px auto 10px;
 	padding: 10px;
-	font-size: 26px;
-	font-weight: 600;
+	font-size: 23px;
 	overflow: hidden;
+	color: #A40004;
+	border-radius: 2px;
+	box-shadow: inset 0px 3px 7px rgba(0, 0, 0, 0.5);
+	border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 
 
 
 .operandas {
+	margin: 20px 0 0 0;
 	display: flex;
 	justify-content: space-between;
 }
@@ -39,11 +46,20 @@ body{
 .sign {
 	flex: 0 1 50px;
 	color: #fff;
-	background-color: blue;
+	background-color: #E5399E;
 	height: 50px;
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+	cursor: pointer;
+	border-radius: 10px;
+	box-shadow: 0px 5px 1px rgba(0, 0, 0, 0.5);
+}
+
+.sign:active {
+	position: relative;
+	top: 3px;
+	box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -52,26 +68,36 @@ body{
 	justify-content: space-between;
 	flex-wrap: wrap;
 	margin: 10px 0 0 0;
+
 }
 
 .num.c{
 	color: #fff;
-	background-color: blue;
+	background-color: #84004D;
 }
 
 .num.reset{
 	color: #fff;
-	background-color: blue;
+	background-color: #84004D;
 }
 
 .num {
 	flex: 0 1 70px;
 	height: 60px;
-	background-color: gold;
+	background-color: #E567B1;
 	margin: 10px;
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
+	cursor: pointer;
+	border-radius: 10px;
+	box-shadow: 0px 5px 1px rgba(0, 0, 0, 0.5);
+}
+
+.num:active {
+	position: relative;
+	top: 3px;
+	box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.5);
 }
 
 .alert_null{

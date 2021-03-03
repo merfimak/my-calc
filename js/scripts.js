@@ -19,10 +19,16 @@ let cancel = false;//флаг для удоления с экранна отве
 	let text = scrin.innerText;
 	let arr = text.split('\u00A0');
 	console.log(arr)
-	let operandaSign = arr[1];
+	console.log(text)
+	if(arr[2] == '' || arr.length <= 1){
+		scrin.innerHTML = text;
+	}else{
+			let operandaSign = arr[1];
 	console.log(operandaSign)
 	scrin.innerHTML = action(operandaSign, arr);
 	cancel = true;//флаг для удоления с экранна ответа после того как нажали еqual
+	}
+
 	});
 
 //дорабоать равно и внешний вид
@@ -34,17 +40,18 @@ for (i = 0; i < operanda.length; i++) {
 	//console.log(operanda[i].dataset.sign);
 
 	operanda[i].addEventListener("click", function(){
-
+		cancel = false;
 		let text = scrin.innerText;
 		let arr = text.split('\u00A0');
 		let n = event.target.dataset.sign;
 		console.log(arr)
 		if(text == '' && n != '-'){//шо не нажимали в начале знак
 			scrin.innerText  = text;
-		}else if(arr.includes(n) && n != '-'){//что б не выдовало ошибку при повторном нажатии на ту же самую операнду
+		}else if(arr.includes(n) && n != '-' && arr.length < 2){//что б не выдовало ошибку при повторном нажатии на ту же самую операнду
 			scrin.innerText  = text;
 		}
-		else if(arr.includes("+") || arr.includes("-") || arr.includes("*") || arr.includes("/")){// если уже есть готовая операция то операнда заменяет равоно
+		//else if(arr.includes("+") || arr.includes("-") || arr.includes("*") || arr.includes("/")){// если уже есть готовая операция то операнда заменяет равоно
+		else if(arr.length > 2){// если уже есть готовая операция то операнда заменяет равоно
 			let operandaSign = arr[1];
 			scrin.innerHTML = action(operandaSign, arr) + '\u00A0' + n  + '\u00A0';		
 		}else{
@@ -95,8 +102,14 @@ c.addEventListener("click", function(){
 
 reset.addEventListener("click", function(){  
 	
-	let text = scrin.innerText.trim();
-       scrin.innerText  = text.slice(0, -1).trim();//Метод slice() извлекает часть строки и возвращает новую строку без изменения оригинальной строки.
+	let text = scrin.innerText;
+let arr = text.split('');
+
+arr.pop()
+let newText = arr.join('')
+console.log(arr)
+       scrin.innerText  = newText;//Метод slice() извлекает часть строки и возвращает новую строку без изменения оригинальной строки.
+       console.log(scrin.innerText)
 	});
 
 function action(operandaSign, arr){
@@ -122,3 +135,9 @@ function action(operandaSign, arr){
 
 }
 
+/*reset.addEventListener("click", function(){  
+	
+	let text = scrin.innerText.trim();
+	
+       scrin.innerText  = text.slice(0, -1).trim();//Метод slice() извлекает часть строки и возвращает новую строку без изменения оригинальной строки.
+	});*/
