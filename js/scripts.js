@@ -45,12 +45,15 @@ for (i = 0; i < operanda.length; i++) {
 		let arr = text.split('\u00A0');
 		let n = event.target.dataset.sign;
 		console.log(arr)
-		if(text == '' && n != '-'){//шо не нажимали в начале знак
+		console.log(n)
+		if(text == '' && n != '-'){//шоб не нажимали в начале знак
 			scrin.innerText  = text;
 		}else if(arr.includes(n) && n != '-' && arr.length < 2){//что б не выдовало ошибку при повторном нажатии на ту же самую операнду
 			scrin.innerText  = text;
 		}
-		//else if(arr.includes("+") || arr.includes("-") || arr.includes("*") || arr.includes("/")){// если уже есть готовая операция то операнда заменяет равоно
+		else if(arr.length == 3 && arr[2] == '' && n != arr[1]){//что б можно было при неполном примере менять операнду.
+			scrin.innerText  = arr[0] + '\u00A0' + n  + '\u00A0';
+		}
 		else if(arr.length > 2){// если уже есть готовая операция то операнда заменяет равоно
 			let operandaSign = arr[1];
 			scrin.innerHTML = action(operandaSign, arr) + '\u00A0' + n  + '\u00A0';		
@@ -102,15 +105,19 @@ c.addEventListener("click", function(){
 
 reset.addEventListener("click", function(){  
 	
-	let text = scrin.innerText;
+	let text = scrin.innerText.trim();
+
 let arr = text.split('');
 
-arr.pop()
-let newText = arr.join('')
-console.log(arr)
-       scrin.innerText  = newText;//Метод slice() извлекает часть строки и возвращает новую строку без изменения оригинальной строки.
-       console.log(scrin.innerText)
-	});
+let pop = arr.pop()//последний элемент массива
+if(pop == ' '|| pop == '+' || pop == '-' || pop == '*' || pop == '/'){
+	scrin.innerText  = text.slice(0, -2)//Метод slice() извлекает часть строки и возвращает новую строку без изменения оригинальной строки.
+}else{
+	scrin.innerText  = text.slice(0, -1)
+}
+
+
+	})
 
 function action(operandaSign, arr){
 		switch (operandaSign) {
