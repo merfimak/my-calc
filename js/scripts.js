@@ -48,7 +48,7 @@ for (i = 0; i < operanda.length; i++) {
 		console.log(n)
 		if(text == '' && n != '-'){//шоб не нажимали в начале знак
 			scrin.innerText  = text;
-		}else if(arr.includes(n) && n != '-' && arr.length < 2){//что б не выдовало ошибку при повторном нажатии на ту же самую операнду
+		}else if(arr.length == 3 && arr[2] == '' && n == arr[1]){//что б не выдовало ошибку при повторном нажатии на ту же самую операнду
 			scrin.innerText  = text;
 		}
 		else if(arr.length == 3 && arr[2] == '' && n != arr[1]){//что б можно было при неполном примере менять операнду.
