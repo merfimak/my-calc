@@ -6,6 +6,7 @@ var scrin = document.getElementById('scrin');
 var еqual = document.getElementById('еqual');
 var c = document.getElementById('c');
 var reset = document.getElementById('reset');
+var dot = document.getElementById('dot');
 let digit = document.getElementsByClassName('digit');
 let operanda = document.getElementsByClassName('operanda');
 let cancel = false;//флаг для удоления с экранна ответа после того как нажали еqual
@@ -115,9 +116,35 @@ if(pop == ' '|| pop == '+' || pop == '-' || pop == '*' || pop == '/'){
 }else{
 	scrin.innerText  = text.slice(0, -1)
 }
-
-
 	})
+
+
+
+//точка
+dot.addEventListener("click", function(){  
+	let text = scrin.innerText.trim();
+	let arr = text.split('');
+	let pop = arr.pop()//последний элемент массива
+	let  arr_parts = text.split('\u00A0');//шоб не писали несколько точек в одной цифре
+	for (i = 0; i < arr_parts.length; i++) {
+		if(arr_parts[i].indexOf('.') < 0){
+			console.log(arr_parts[i].indexOf('.'))
+			scrin.innerText  = text + '.';			
+		}else{
+			console.log(arr_parts[i].indexOf('.'))
+			scrin.innerText  = text;
+		}
+	}
+	if(pop == ' '|| pop == '+' || pop == '-' || pop == '*' || pop == '/'){//шоб не нажимали после знака
+		scrin.innerText  = text + '\u00A0';
+	}else if(text == '' || text == '-'){//шоб не нажимали в начале знак
+			scrin.innerText  = text;
+	}
+       
+	});
+
+
+
 
 function action(operandaSign, arr){
 		switch (operandaSign) {
