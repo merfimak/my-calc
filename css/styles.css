@@ -31,6 +31,15 @@ body{
 	border-radius: 2px;
 	box-shadow: inset 0px 3px 7px rgba(0, 0, 0, 0.5);
 	border: 1px solid rgba(0, 0, 0, 0.5);
+	word-wrap: break-word;
+}
+
+.scrin.long{
+	font-size: 15px;
+}
+
+.scrin.very_long{
+	font-size: 10px;
 }
 
 
@@ -70,13 +79,18 @@ background-color: #84004D;
 
 .digits {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	flex-wrap: wrap;
 	margin: 10px 0 0 0;
 
 }
 
 .num.c{
+	color: #fff;
+	background-color: #E5399E;
+}
+
+.num.dot{
 	color: #fff;
 	background-color: #E5399E;
 }
@@ -113,4 +127,10 @@ background-color: #84004D;
 .alert_null{
 	color: red;
 	font-size: 13px;
+}
+
+
+.else_buttons{
+	display: flex;
+	justify-content: space-between;
 }

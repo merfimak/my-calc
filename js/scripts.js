@@ -13,19 +13,54 @@ let cancel = false;//флаг для удоления с экранна отве
 
 
 
+//////////////////////////////////////////отслеживаем длину строки//////////////////////////////////////////
+
+// Конфигурация observer (за какими изменениями наблюдать)
+const config = {
+    attributes: false,
+    childList: true,
+    subtree: false
+};
+
+// Колбэк-функция при срабатывании мутации
+const callback = function(mutationsList, observer) {
+	let text = scrin.innerText;
+	if(scrin.innerHTML.length < 19){
+		scrin.classList.remove('long');
+		scrin.classList.remove('very_long');
+
+	}else if(scrin.innerHTML.length > 20  && scrin.innerHTML.length < 60){
+		scrin.classList.add('long');
+	}else if(scrin.innerHTML.length > 61){
+		scrin.classList.remove('long');
+		scrin.classList.add('very_long');
+	}
+	else if(scrin.innerHTML.length > 164){
+		scrin.classList.remove('long');
+		scrin.classList.add('very_long');
+	}
+
+};
+// Создаём экземпляр наблюдателя с указанной функцией колбэка
+const observer = new MutationObserver(callback);
+// Начинаем наблюдение за настроенными изменениями целевого элемента
+observer.observe(scrin, config);
+
+
+
 
 
 //////////////////////////////////////////еqual//////////////////////////////////////////
 еqual.addEventListener("click", function(){
 	let text = scrin.innerText;
 	let arr = text.split('\u00A0');
-	console.log(arr)
-	console.log(text)
+	//console.log(arr)
+	//console.log(text)
 	if(arr[2] == '' || arr.length <= 1){
 		scrin.innerHTML = text;
 	}else{
 			let operandaSign = arr[1];
-	console.log(operandaSign)
+	//console.log(operandaSign)
 	scrin.innerHTML = action(operandaSign, arr);
 	cancel = true;//флаг для удоления с экранна ответа после того как нажали еqual
 	}
@@ -45,8 +80,8 @@ for (i = 0; i < operanda.length; i++) {
 		let text = scrin.innerText;
 		let arr = text.split('\u00A0');
 		let n = event.target.dataset.sign;
-		console.log(arr)
-		console.log(n)
+		//console.log(arr)
+		//console.log(n)
 		if(text == '' && n != '-'){//шоб не нажимали в начале знак
 			scrin.innerText  = text;
 		}else if(arr.length == 3 && arr[2] == '' && n == arr[1]){//что б не выдовало ошибку при повторном нажатии на ту же самую операнду
@@ -121,6 +156,7 @@ if(pop == ' '|| pop == '+' || pop == '-' || pop == '*' || pop == '/'){
 
 
 //точка
+//нужно доработать если перевое чисто со знаком минус то выдает Udefintd
 dot.addEventListener("click", function(){  
 	let text = scrin.innerText.trim();
 	let arr = text.split('');
@@ -128,17 +164,17 @@ dot.addEventListener("click", function(){
 	let  arr_parts = text.split('\u00A0');//шоб не писали несколько точек в одной цифре
 	for (i = 0; i < arr_parts.length; i++) {
 		if(arr_parts[i].indexOf('.') < 0){
-			console.log(arr_parts[i].indexOf('.'))
+			//console.log(arr_parts[i].indexOf('.'))
 			scrin.innerText  = text + '.';			
 		}else{
-			console.log(arr_parts[i].indexOf('.'))
+			//console.log(arr_parts[i].indexOf('.'))
 			scrin.innerText  = text;
 		}
 	}
-	if(pop == ' '|| pop == '+' || pop == '-' || pop == '*' || pop == '/'){//шоб не нажимали после знака
+	if(pop == ' '|| pop == '+' || pop == '-' || pop == '*' || pop == '/' || pop == '\u00A0'){//шоб не нажимали после знака
 		scrin.innerText  = text + '\u00A0';
 	}else if(text == '' || text == '-'){//шоб не нажимали в начале знак
-			scrin.innerText  = text;
+			scrin.innerText  = '\u00A0' + text;
 	}
        
 	});
@@ -169,9 +205,4 @@ function action(operandaSign, arr){
 
 }
 
-/*reset.addEventListener("click", function(){  
-	
-	let text = scrin.innerText.trim();
-	
-       scrin.innerText  = text.slice(0, -1).trim();//Метод slice() извлекает часть строки и возвращает новую строку без изменения оригинальной строки.
-	});*/
+
